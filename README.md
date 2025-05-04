@@ -2,9 +2,15 @@
 
 A Discord bot for playing the Russian card game Durak.
 
+## Invite the Bot
+
+Add the bot to your server using this link:
+[Invite Durak Bot](https://discord.com/oauth2/authorize?client_id=1368277750439219300&permissions=8&integration_type=0&scope=bot)
+
 ## Features
 
 - Play the Durak card game with friends in Discord
+- Fully reaction-based gameplay - no typing needed!
 - Private channels for each player
 - Automatic card dealing and turn management
 - Visual representation of the game state
@@ -21,22 +27,41 @@ A Discord bot for playing the Russian card game Durak.
    ```
    DISCORD_TOKEN1=your_discord_token_here
    ```
-4. Run the bot:
+4. Run the reaction-based version (recommended):
+   ```
+   python run_reaction_based.py
+   ```
+   
+   Or run the command-based version:
    ```
    python bot.py
    ```
 
 ## Game Commands
 
-- `/durak` - Start setting up a new game
-- `/join` - Join a game that's being set up
-- `/start` - Start the game with all joined players
-- `/play <card(s)>` - Play cards as the attacker
-- `/defend <card(s)>` - Defend with cards as the defender
-- `/take` - Take all cards from the table as the defender
-- `/giveup` - End your attack (only when all cards are defended)
+### Setup Commands
+- `/durak` - Start setting up a new game (creates a reaction-based setup message)
+- `/join` - (Alternative) Join a game that's being set up
+- `/start` - (Alternative) Start the game with all joined players
 - `/deleteall` - (Admin only) Delete all game channels and roles
 - `/help_durak` - Show help information for game commands
+
+### Reaction Controls
+- **Game Setup**:
+  - 👤 - Join the game
+  - 🎮 - Start the game (requires at least 2 players)
+  
+- **In-Game Actions**:
+  - 🃏 - Play cards as the attacker
+  - 🛡️ - Defend with cards as the defender
+  - 🤲 - Take all cards from the table as the defender
+  - 🏳️ - End your attack (only when all cards are defended)
+  
+- **Card Selection**:
+  - 1️⃣-🔟 - Select cards
+  - ✅ - Confirm selection
+  - ❌ - Cancel selection
+  - ⏪/⏩ - Navigate pages (for 10+ cards)
 
 ## Game Rules
 
@@ -54,10 +79,17 @@ Durak is a Russian card game where the objective is to get rid of all your cards
 
 ## Project Structure
 
-- `bot.py` - Main bot initialization and event handling
-- `commands.py` - Game command implementations
+### Main Files
+- `run_reaction_based.py` - Run the reaction-based version of the bot (recommended)
+- `reaction_based_main.py` - Main implementation of the reaction-based Durak game
+- `bot.py` - Original command-based bot implementation
+- `improved_main.py` - Improved version of the command-based implementation
+- `run_improved.py` - Run the improved command-based version
+
+### Support Files
 - `models.py` - Data models for the game (Card, Player, Server, Application)
 - `config.py` - Configuration settings and constants
+- `commands.py` - Game command implementations for the original version
 - `utils/helpers.py` - Utility functions for Discord operations
 
 ## License

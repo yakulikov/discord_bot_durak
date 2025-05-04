@@ -959,11 +959,12 @@ async def end_turn(server, turn_taken):
         server.state = GameState.FINISHED
         return
     
-    # Replace trump card if it's taken
-    if server.trump_card and server.trump_card not in server.deck:
-        # Keep only the suit information
-        server.trump_card = Card(server.trump_card.rank, server.trump_card.suit)
-        server.trump_taken = True
+    # Make sure trump card is preserved even when deck is empty
+    if not server.trump_card or (server.trump_card not in server.deck and not server.trump_taken):
+        # Keep the trump card information even when it's taken from the deck
+        if server.trump_card:
+            server.trump_card = Card(server.trump_card.rank, server.trump_card.original_suit)
+            server.trump_taken = True
     
     # Update all displays
     for player in server.players:
